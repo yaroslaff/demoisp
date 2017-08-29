@@ -1,8 +1,100 @@
+<!DOCTYPE html>
 <html>
+
 <head>
-    <title>Как бы ISP</title>
+
+  <meta charset="UTF-8">
+  <link href="static/style.css" rel="stylesheet">
+  
+  <title>Как бы ISP :: Главная</title>
+
+  <script src="js/prefixfree.min.js"></script>
 </head>
+
 <body>
-<h1>Как бы ISP :: Главная</h1>
+
+    <h1>Как бы ISP :: Главная</h1>
+
+    {{current_user.username}} ({{current_user.email}})
+
+
+    <div class="profile">
+    
+        <div class="topmenu">
+            <span>
+            <a href="/">main</a>
+            <a href="/logout">logout</a>
+            </span>            
+        </div>
+
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+	    <div class="error">
+        <ul class=flashes>
+        {% for message in messages %}
+          <li>{{ message }}</li>
+        {% endfor %}
+        </ul>
+        </div>
+      {% endif %}
+    {% endwith %}
+
+
+    </div>
+
+    <div class="infobox">
+        <table>
+            <tr>
+              <td class='titlecol''>Тарифный план:</td>
+              <td>VPS-1 (500 руб)<br>
+            </tr>
+            <tr>
+              <td class='titlecol'>Баланс:</td>
+              <td>0 RUR</td>          
+            </tr>
+            
+            <tr>
+              <td class='titlecol'>CPU:</td>
+              <td>1 core</td>          
+            </tr>
+            <tr>
+              <td class='titlecol'>RAM:</td>
+              <td>2 GB</td>          
+            </tr>
+            <tr>
+              <td class='titlecol'>HDD:</td>
+              <td>20 GB (SSD)</td>          
+            </tr>            
+        </table>
+    </div>
+
+
+
+    <div class="infobox">
+        <table>
+            <tr>
+              <td class='titlecol''>Мониторинг:</td>
+              <td>okerr:basic ( <a href="http://cp.okerr.com/">перейти</a> )</td>
+            </tr>
+            <tr>
+              <td class='titlecol'>Индикаторов:</td>
+              <td>7/10</td>          
+            </tr>
+            
+            <tr>
+              <td class='titlecol'>ERR:</td>
+              <td>
+                <ul>
+                  <li>MySQL
+                  <li>HDD
+                </ul>
+              </td>          
+            </tr>
+        </table>
+    </div>
+
+
+
 </body>
+
 </html>

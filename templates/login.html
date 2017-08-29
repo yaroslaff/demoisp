@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+  <meta charset="UTF-8">
+  <link href="static/style-login.css" rel="stylesheet">
+
+  <title>DemoISP Login</title>
+
+    <script src="js/prefixfree.min.js"></script>
+
+</head>
+
+<body>
+
+
+
+  <div class="body"></div>
+
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+	    <div class="error">
+        <ul class=flashes>
+        {% for message in messages %}
+          <li>{{ message }}</li>
+        {% endfor %}
+        </ul>
+        </div>
+      {% endif %}
+    {% endwith %}
+
+		<div class="grad"></div>
+		<div class="header">
+			<div>Demo<span>ISP</span></div>
+		</div>
+		<br>
+		<div class="login">
+		    <form method=post action="/login" name='loginform'>
+				<input type="text" value="demo" name="user"><br>
+				<input type="password" placeholder="password" value="demo" name="password"><br>
+				<input type="button" value="Login (demo/demo)" onclick='loginform.submit()'>
+			</form>
+		</div>
+
+  <script src='http://codepen.io/assets/libs/fullpage/jquery.js'></script>
+
+</body>
+
+</html>

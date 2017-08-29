@@ -1,0 +1,79 @@
+@import url(http://fonts.googleapis.com/css?family=Exo:100,200,400);
+@import url(http://fonts.googleapis.com/css?family=Source+Sans+Pro:700,400,300);
+
+
+.body{
+	position: absolute;
+	top: -20px;
+	left: -20px;
+	right: -40px;
+	bottom: -40px;
+	width: auto;
+	height: auto;
+	/* background-image: url(http://ginva.com/wp-content/uploads/2012/07/city-skyline-wallpapers-008.jpg);*/
+	/*background-size: cover;
+	-webkit-filter: blur(5px);
+	z-index: 0;*/
+}
+
+.error {
+    background: white;
+    color: red;
+    font-size: 16px;
+    text-align: center;
+	/*z-index: 1;*/
+	/*opacity: 1;*/
+}
+
+body, html {
+    height: 100%;
+    background-repeat: no-repeat;
+    background-image: linear-gradient(rgb(200, 200, 200), rgb(20, 20, 20));
+}
+
+.topmenu {
+    background-color: #00a;
+    font-size: 16px;
+    color: white;
+    text-align: left;
+}
+
+a:link{color:inherit}
+a:active{color:inherit}
+a:visited{color:inherit}
+a:hover{color:inherit}
+
+
+.h1 {
+    color: red;
+}
+
+.profile {
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    margin: 10px 0 0;
+    min-height: 1em;
+    border: 1px;
+}
+
+
+.infobox {
+    border: 1px dashed #444;
+    padding: 5px;
+    margin: 20px;
+    width: 40%;
+    display: inline-block;
+    vertical-align: top;
+}
+
+td ul {
+    padding-top: 0px;
+    margin: 0px;
+}
+
+.titlecol {
+    color: #444;
+    font-weight: bold;
+	font-family: 'Source Sans Pro', sans-serif;
+}
