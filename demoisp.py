@@ -12,6 +12,7 @@ import sqlite3
 import json
 import random
 import string
+import sys
 from datetime import datetime, timedelta
 
 
@@ -344,6 +345,12 @@ def id_generator(size=6, chars=string.ascii_uppercase + string.ascii_lowercase +
 
 def init_client():
 
+    hostnames = ['alpha.okerr.com','charlie.okerr.com','cp.okerr.com']
+
+    ruris = list()
+
+    print "init client"
+
     client = Client.query.filter_by(name='okerr').first()
     
     if client is None:
@@ -352,20 +359,30 @@ def init_client():
     client.name = 'okerr'
     client.description = 'okerr monitoring platform'
     
-    if not client_id:
+    if not client.client_id:
         client.client_id = id_generator(20, string.digits)
-    if not client_secret:
+    if not client.client_secret:
         client.client_secret = id_generator(50)
     
     client.is_confidential = True
     client._default_scopes = 'profile'    
-    client._redirect_uris = 'https://cp.okerr.com/sredir/'
+    
+    for h1 in hostnames:
+        for h2 in hostnames:
+            ruris.append('https://{}/sredir/{}/oauth2/callback/demoisp/'.format(h1, h2))
+    for ru in ruris:
+        print ru    
+    client._redirect_uris = ' '.join(ruris)
     db.session.add(client)
     db.session.commit()
     
 
     
 if __name__ == '__main__':
+    if "reinit" in sys.argv:
+        init_client()
+        sys.exit(0)
+
     app.run()    
     
     
