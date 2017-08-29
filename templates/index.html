@@ -73,23 +73,30 @@
         <table>
             <tr>
               <td class='titlecol''>Мониторинг:</td>
-              <td>okerr:basic ( <a href="http://cp.okerr.com/oauth2/login/demoisp/">перейти</a> )</td>
+              <td>okerr:basic ( <a href="https://cp.okerr.com/oauth2/login/demoisp/">перейти</a> )</td>
+            </tr>
+        {% for p in data.projects %}
+            <tr>
+              <td class='titlecol'>Проект</td>
+              <td><a href="https://cp.okerr.com/oauth2/login/demoisp/i/{{p.textid}}">{{p.name}}</a></td>
             </tr>
             <tr>
-              <td class='titlecol'>Индикаторов:</td>
-              <td>7/10</td>          
-            </tr>
-            
+              <td class='titlecol'>Сводка</td>
+              <td>OK: {{p.sum.OK}}, ERR: {{p.sum.ERR}}</td>
+            </tr>            
             <tr>
-              <td class='titlecol'>ERR:</td>
+              <td class='titlecol'>Проблемы</td>
               <td>
                 <ul>
-                  <li>MySQL
-                  <li>HDD
+                {% for i in p.err %}
+                    <li><a href='https://cp.okerr.com/oauth2/login/demoisp/i/{{p.textid}}/{{i}}'>{{i}}</a>
+                {% endfor %}
                 </ul>
-              </td>          
-            </tr>
+              </td>
+            </tr>            
+        {% endfor %}
         </table>
+        
     </div>
 
 

@@ -13,6 +13,7 @@ import json
 import random
 import string
 import sys
+import requests
 from datetime import datetime, timedelta
 
 
@@ -298,7 +299,14 @@ def profile():
 @app.route("/")
 @login_required
 def index():
-    return render_template('index.html')
+
+    puser = 'test'
+    ppass = 'testpass'
+
+    cr = requests.get('https://cp.okerr.com/api/partner/check/1', auth=('test','testpass'))
+    data = json.loads(cr.text)
+
+    return render_template('index.html', data=data)
 
     
 @app.route('/login', methods=['GET', 'POST'])
