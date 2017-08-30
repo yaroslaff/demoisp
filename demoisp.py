@@ -300,6 +300,9 @@ def profile():
 @login_required
 def index():
 
+    print "index"
+    print request.headers.get('x-forwarded-proto','no x-forwarded-proto')
+    
     puser = 'test'
     ppass = 'testpass'
 
