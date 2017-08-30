@@ -299,14 +299,12 @@ def profile():
 @app.route("/")
 @login_required
 def index():
-
-        
+            
+    if request.headers.get('x-forwarded-proto',None) == 'http':
+        url = request.url.replace('http://', 'https://', 1)
+        code = 301
+        return flask.redirect(url, code=code)
     
-    print "index url", request.url
-    
-    #if request.headers.get('x-forwarded-proto',None) == 'http':
-    #    return flask.redirect()
-
     
     puser = 'test'
     ppass = 'testpass'
