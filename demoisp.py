@@ -304,6 +304,9 @@ def index():
     ppass = 'testpass'
 
     cr = requests.get('https://cp.okerr.com/api/partner/check/1', auth=('test','testpass'))
+    #print "status:", cr.status_code
+    #print cr.text
+    
     data = json.loads(cr.text)
 
     return render_template('index.html', data=data)
