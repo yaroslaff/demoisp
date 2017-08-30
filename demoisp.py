@@ -300,8 +300,13 @@ def profile():
 @login_required
 def index():
 
-    print "index"
-    print request.headers.get('x-forwarded-proto','no x-forwarded-proto')
+        
+    
+    print "index url", request.url
+    
+    #if request.headers.get('x-forwarded-proto',None) == 'http':
+    #    return flask.redirect()
+
     
     puser = 'test'
     ppass = 'testpass'
@@ -312,8 +317,14 @@ def index():
     
     data = json.loads(cr.text)
 
-    return render_template('index.html', data=data)
+    resp = render_template('index.html', data=data)
 
+
+    if request.headers.get('x-forwarded-proto',None) == 'https':
+        resp.headers['Strict-Transport-Security'] = "max-age=31536000; includeSubDomains"
+
+
+    return resp
     
 @app.route('/login', methods=['GET', 'POST'])
 def login():
