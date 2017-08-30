@@ -315,7 +315,7 @@ def index():
     
     data = json.loads(cr.text)
 
-    resp = render_template('index.html', data=data)
+    resp = flask.make_response(render_template('index.html', data=data))
 
 
     if request.headers.get('x-forwarded-proto',None) == 'https':
