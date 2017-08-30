@@ -405,9 +405,8 @@ def init_client():
     client.is_confidential = True
     client._default_scopes = 'profile'    
     
-    for h1 in hostnames:
-        for h2 in hostnames:
-            ruris.append('https://{}/sredir/{}/oauth2/callback/demoisp/'.format(h1, h2))
+    for host in hostnames:
+        ruris.append('https://{}/oauth2/callback'.format(host))
     for ru in ruris:
         print ru    
     client._redirect_uris = ' '.join(ruris)
