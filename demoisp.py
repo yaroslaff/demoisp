@@ -363,7 +363,7 @@ def login():
             return render_template('login.html', error='Bad login/pass')
 
 
-    resp = flask.make_response(render_template('login.html', data=data))
+    resp = flask.make_response(render_template('login.html'))
 
     if request.headers.get('x-forwarded-proto',None) == 'https':
         resp.headers['Strict-Transport-Security'] = "max-age=31536000; includeSubDomains"
