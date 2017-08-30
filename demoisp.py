@@ -381,6 +381,18 @@ def logout():
 def id_generator(size=6, chars=string.ascii_uppercase + string.ascii_lowercase + string.digits):
     return ''.join(random.choice(chars) for _ in range(size))
 
+
+def show():
+    client = Client.query.filter_by(name='okerr').first()
+    
+    if client is None:
+        print "no client"
+        
+    print "client:", client.name
+    for ru in client._redirect_uris.split():
+        print ru
+
+
 def init_client():
 
     hostnames = ['alpha.okerr.com','charlie.okerr.com','cp.okerr.com']
@@ -419,6 +431,11 @@ if __name__ == '__main__':
     if "reinit" in sys.argv:
         init_client()
         sys.exit(0)
+
+    if "show" in sys.argv:
+        show()
+        sys.exit(0)
+
 
     app.run()    
     
