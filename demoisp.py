@@ -326,6 +326,15 @@ def index():
     
 @app.route('/login', methods=['GET', 'POST'])
 def login():
+
+            
+    if request.headers.get('x-forwarded-proto',None) == 'http':
+        url = request.url.replace('http://', 'https://', 1)
+        code = 301
+        return flask.redirect(url, code=code)
+
+
+
     # Here we use a class of some kind to represent and validate our
     # client-side form data. For example, WTForms is a library that will
     # handle this for us, and we use a custom LoginForm to validate.
@@ -352,8 +361,14 @@ def login():
         else:
             flask.flash('Bad login/pass')
             return render_template('login.html', error='Bad login/pass')
+
+
+    resp = flask.make_response(render_template('login.html', data=data))
+
+    if request.headers.get('x-forwarded-proto',None) == 'https':
+        resp.headers['Strict-Transport-Security'] = "max-age=31536000; includeSubDomains"
         
-    return render_template('login.html', error='OK')
+    return resp
 
 @app.route("/logout")
 @login_required
