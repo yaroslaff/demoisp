@@ -258,6 +258,12 @@ def save_token(token, request, *args, **kwargs):
     db.session.commit()
     return tok
 
+
+def get_server(partner_id):
+
+    cr = requests.get('https://cp.okerr.com/api/partner/check/{}'.format(partner_id), auth=('test','testpass'))
+    data = json.loads(cr.text)
+    return data['server']
     
 ######  VIEWS
 
@@ -309,11 +315,10 @@ def index():
     puser = 'test'
     ppass = 'testpass'
 
-    cr = requests.get('https://cp.okerr.com/api/partner/check/1', auth=('test','testpass'))
-    #print "status:", cr.status_code
-    #print cr.text
-    
+    server = get_server(1)
+    cr = requests.get('{}api/partner/check/1'.format(server), auth=('test','testpass'))    
     data = json.loads(cr.text)
+
 
     resp = flask.make_response(render_template('index.html', data=data))
 
