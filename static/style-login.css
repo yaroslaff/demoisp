@@ -17,6 +17,14 @@
 	z-index: 0;*/
 }
 
+a:link, a:visited {
+    color: #ccc;
+}
+
+a:hover {
+    color: #fff;
+}
+
 .grad{
 	position: absolute;
 	top: -20px;
