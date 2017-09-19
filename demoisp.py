@@ -261,7 +261,9 @@ def save_token(token, request, *args, **kwargs):
 
 def get_server(partner_id):
 
-    cr = requests.get('https://cp.okerr.com/api/partner/check/{}'.format(partner_id), auth=('test','testpass'))
+    cr = requests.get('https://cp.okerr.com/api/partner/check/{}'.format(partner_id), auth=('demoisp','demoisppass'))
+    if cr.status_code != 200:
+        raise ValueError('{}: {}'.format(cr.status_code, cr.text))
     data = json.loads(cr.text)
     return data['server']
     
@@ -312,11 +314,16 @@ def index():
         return flask.redirect(url, code=code)
     
     
-    puser = 'test'
-    ppass = 'testpass'
-
-    server = get_server(1)
-    cr = requests.get('{}api/partner/check/1'.format(server), auth=('test','testpass'))    
+    puser = 'demoisp'
+    ppass = 'demoisppass'
+    
+    try:
+        server = get_server(1)
+    except ValueError as e:
+        return repr(e)
+    
+    
+    cr = requests.get('{}api/partner/check/1'.format(server), auth=('demoisp','demoisppass'))    
     data = json.loads(cr.text)
 
 
