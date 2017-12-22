@@ -22,6 +22,7 @@
             <span>
             <a href="/">main</a>
             <a href="/logout">logout</a>
+            <a href="/admin">admin</a>
             </span>            
         </div>
 
@@ -71,8 +72,29 @@
     <div class="infobox">
         <table>
             <tr>
-              <td class='titlecol''>Мониторинг:</td>
-              <td>okerr:basic ( <a href="https://cp.okerr.com/oauth2/login/demoisp/">перейти</a> )</td>
+                <td class='titlecol'>Мониторинг</td>
+                <td><a href="https://cp.okerr.com/oauth2/login/demoisp/">перейти</a></td>
+            </tr>
+            <tr>
+              <td class='titlecol'>Услуги:</td>
+              <td>
+                <table>
+                {% for m in data.membership %}
+                    <tr>
+                    <td>
+                    {{m.group}}
+                    </td>
+                    <td> 
+                    {% if m.exp %}
+                        {{m.exp}}
+                    {% else %}
+                        (навсегда)
+                    {% endif %}
+                    </td>
+                    </tr>
+                {% endfor %}
+                </table>             
+              </td>
             </tr>
         {% for p in data.projects %}
             <tr>
@@ -97,7 +119,7 @@
         </table>
         
     </div>
-
+    
     <p>
     // <a href="https://github.com/yaroslaff/demoisp">source code (github)</a>
 

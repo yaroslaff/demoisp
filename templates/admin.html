@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+  <meta charset="UTF-8">
+  <link href="static/style.css" rel="stylesheet">
+  
+  <title>Как бы ISP :: Админский интерфейс</title>
+
+</head>
+
+<body>
+
+    <h1>Как бы ISP :: Прототип интерфейса администратора</h1>    
+    <div class="profile">
+    
+        <div class="topmenu">
+            <span>
+            <a href="/">main</a>
+            <a href="/logout">logout</a>
+            <a href="/admin">admin</a>
+            </span>            
+        </div>
+
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+	    <div class="error">
+        <ul class=flashes>
+        {% for message in messages %}
+          <li>{{ message }}</li>
+        {% endfor %}
+        </ul>
+        </div>
+      {% endif %}
+    {% endwith %}
+
+    </div>
+
+    <div class="infobox">
+        <h3>Группы пользователя</h3>
+        <table>
+            <tr>
+                <th>Группа</th>
+                <th>Окончание</th>
+                <th>Отменить</th>
+            </tr>
+        {% for m in data.membership %}
+            <tr>
+                <td>{{m.group}}</td>
+                <td>{{m.exp}}</td>
+                <td>
+                    <form method=post>
+                        <input type=hidden name=revgroup value="{{m.group}}">
+                        <input type=hidden name=exp value="{{m.exp}}">
+                        <input type="submit" class="linkButton" value="Отменить">
+                    </form>                              
+                </td>
+            </tr>
+        {% endfor %}
+        </table>
+    </div>
+
+    <div class="infobox">
+        <table>
+            <tr>
+                <th>Группа</th>
+                <th>Цена</th>
+                <th>Команда</th>
+            </tr>
+        {% for g in groups %}
+            <tr>
+                <td>{{g._name}}</td>
+                <td>{{g._price}}</td>
+                <td>
+                    <form method=post>
+                        <input type=hidden name=addgroup value="{{g._name}}">
+                        <input type="submit" class="linkButton" value="Назначить">
+                    </form>
+                </td>
+            </tr>            
+        {% endfor %}        
+        </table>
+    </div>
+        
+    <p>
+    // <a href="https://github.com/yaroslaff/demoisp">source code (github)</a>
+
+</body>
+
+</html>

@@ -304,6 +304,7 @@ def profile():
     
     return json.dumps(d, indent=4)
 
+
 @app.route("/")
 @login_required
 def index():
@@ -325,16 +326,76 @@ def index():
     
     cr = requests.get('{}api/partner/check/1'.format(server), auth=('demoisp','demoisppass'))    
     data = json.loads(cr.text)
-
-
+    
     resp = flask.make_response(render_template('index.html', data=data))
 
 
     if request.headers.get('x-forwarded-proto',None) == 'https':
         resp.headers['Strict-Transport-Security'] = "max-age=31536000; includeSubDomains"
 
+    return resp
+
+
+@app.route("/admin", methods=['GET', 'POST'])
+@login_required
+def admin():
+            
+    if request.headers.get('x-forwarded-proto',None) == 'http':
+        url = request.url.replace('http://', 'https://', 1)
+        code = 301
+        return flask.redirect(url, code=code)
+    
+    auth = ('demoisp', 'demoisppass')        
+    try:
+        server = get_server(1)
+    except ValueError as e:
+        return repr(e)
+
+
+    if 'revgroup' in request.form:
+        gname = request.form['revgroup']
+        exp = request.form['exp']
+        data = {'group': gname, 'exp': exp, 'partner_id': 1}
+        
+        r = requests.post('{}api/partner/revoke'.format(server), auth=auth, data=data)
+        
+        return flask.redirect(request.url)
+
+
+    if 'addgroup' in request.form:
+        gname = request.form['addgroup']
+        data = {'group': gname, 'partner_id': 1}
+        if gname.startswith('perk'):
+            data['new'] = 1
+        
+        r = requests.post('{}api/partner/grant'.format(server), auth=auth, data=data)
+        
+        return flask.redirect(request.url)
+
+    
+
+    cr = requests.get('{}api/partner/check/1'.format(server), auth=auth)    
+    data = json.loads(cr.text)
+    
+    
+    cr = requests.get('{}api/groups'.format(server))    
+    groups = json.loads(cr.text)
+    glist = list()
+
+    for gname in sorted(groups.keys()):
+        ginfo = groups[gname]
+        ginfo['_name'] = gname
+        glist.append(ginfo)
+
+    resp = flask.make_response(render_template('admin.html', groups=glist, data=data))
+
+    if request.headers.get('x-forwarded-proto',None) == 'https':
+        resp.headers['Strict-Transport-Security'] = "max-age=31536000; includeSubDomains"
 
     return resp
+
+
+
     
 @app.route('/login', methods=['GET', 'POST'])
 def login():
