@@ -304,6 +304,12 @@ def profile():
     
     return json.dumps(d, indent=4)
 
+@app.route("/info")
+def info():
+    d = dict()
+    print "info"
+    d['a']='aaa'
+    return json.dumps(d, indent=4)
 
 @app.route("/")
 @login_required
