@@ -467,7 +467,7 @@ def show():
 
 def init_client():
 
-    hostnames = ['alpha.okerr.com','charlie.okerr.com','cp.okerr.com']
+    hostnames = ['alpha.okerr.com', 'bravo.okerr.com', 'charlie.okerr.com','cp.okerr.com']
 
     ruris = list()
 
