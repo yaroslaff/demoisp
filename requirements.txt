@@ -5,7 +5,6 @@ Flask==1.1.1
 Flask-Login==0.4.1
 Flask-OAuthlib==0.9.5
 Flask-SQLAlchemy==2.4.1
-hashget==0.164
 idna==2.8
 itsdangerous==1.1.0
 Jinja2==2.10.3
