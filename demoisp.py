@@ -18,6 +18,7 @@ from datetime import datetime, timedelta
 
 
 DATABASE='demoisp.db'
+VERSION='1.0'
 
 app = Flask(__name__)
 oauth = OAuth2Provider(app)
@@ -26,7 +27,6 @@ oauth.init_app(app)
 login_manager = LoginManager()
 login_manager.login_view = "login"
 login_manager.init_app(app)
-
 
 app.secret_key = 'super secret key'
 app.config['SESSION_TYPE'] = 'filesystem'
@@ -65,7 +65,7 @@ class User(db.Model):
         return "user {}".format(self.username)
     
     def get_id(self):
-        return unicode(self.username)
+        return self.username
 
 
 
@@ -287,7 +287,7 @@ def revoke_token(): pass
 
 @app.route("/oauth/errors")
 def oauth_errors():
-    print "oauth errors"
+    print("oauth errors")
     page = "Error: {}<br>Description: {}<br>".format(request.args.get('error','<unknown>'), request.args.get('error_description','<unknown>'))
     return page
     
@@ -306,9 +306,9 @@ def profile():
 
 @app.route("/info")
 def info():
-    d = dict()
-    print "info"
-    d['a']='aaa'
+    d = {
+            'version': VERSION
+        }
     return json.dumps(d, indent=4)
 
 @app.route("/")
@@ -464,11 +464,11 @@ def show():
     client = Client.query.filter_by(name='okerr').first()
     
     if client is None:
-        print "no client"
+        print("no client")
         
-    print "client:", client.name
+    print("client:", client.name)
     for ru in client._redirect_uris.split():
-        print ru
+        print(ru)
 
 
 def init_client():
@@ -477,7 +477,7 @@ def init_client():
 
     ruris = list()
 
-    print "init client"
+    print("init client")
 
     client = Client.query.filter_by(name='okerr').first()
     
@@ -498,7 +498,7 @@ def init_client():
     for host in hostnames:
         ruris.append('https://{}/oauth2/callback'.format(host))
     for ru in ruris:
-        print ru    
+        print(ru)    
     client._redirect_uris = ' '.join(ruris)
     db.session.add(client)
     db.session.commit()
