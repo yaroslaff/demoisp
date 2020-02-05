@@ -50,7 +50,10 @@ $ heroku apps
 
 scaling:
 ~~~
-$ heroku ps scale:web=0
-$ heroku ps scale:web=1
+# old: heroku ps scale:web=0
+# old: heroku ps scale:web=1
+heroku ps:scale web=0
+heroku ps:scale web=1
+heroku ps
 ~~~
 
