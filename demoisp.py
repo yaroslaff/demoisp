@@ -497,8 +497,6 @@ def init_client():
     for host in hostnames:
         ruris.append('https://{}/oauth2/callback'.format(host))
     
-    ruris.append()
-    
     for ru in ruris:
         print(ru)    
     client._redirect_uris = ' '.join(ruris)
