@@ -18,7 +18,7 @@ from datetime import datetime, timedelta
 
 
 DATABASE='demoisp.db'
-VERSION='1.0'
+VERSION='1.1'
 
 app = Flask(__name__)
 oauth = OAuth2Provider(app)
@@ -514,6 +514,10 @@ if __name__ == '__main__':
         show()
         sys.exit(0)
 
+
+    if "info" in sys.argv:
+        print(info())
+        sys.exit(0)
 
     app.run()    
     
