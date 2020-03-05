@@ -326,6 +326,7 @@ def test():
         t['status'] = 'OK'
     else:
         t['status'] = 'ERR'
+    tests.append(t)
 
     return json.dumps(tests, indent=4)
 
