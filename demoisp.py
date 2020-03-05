@@ -311,6 +311,24 @@ def info():
         }
     return json.dumps(d, indent=4)
 
+@app.route("/test")
+def test():
+    tests = list()
+
+    partner_id = 1
+
+    t = dict()
+    url = 'https://cp.okerr.com/api/partner/check/{}'.format(partner_id)
+    t['url'] = url
+    cr = requests.get(url, auth=('demoisp', 'demoisppass'))
+    t['status'] = cr.status_code
+    if cr.status_code == 200:
+        t['status'] = 'OK'
+    else:
+        t['status'] = 'ERR'
+
+    return json.dumps(tests, indent=4)
+
 @app.route("/")
 @login_required
 def index():
