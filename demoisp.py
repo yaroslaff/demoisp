@@ -328,7 +328,7 @@ def test():
         t['status'] = 'ERR'
     tests.append(t)
 
-    return json.dumps(tests, indent=4)
+    return flask.Response(json.dumps(tests, indent=4), mimetype='application/json')
 
 @app.route("/")
 @login_required
