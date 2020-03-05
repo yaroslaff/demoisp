@@ -321,7 +321,7 @@ def test():
     url = 'https://cp.okerr.com/api/partner/check/{}'.format(partner_id)
     t['url'] = url
     cr = requests.get(url, auth=('demoisp', 'demoisppass'))
-    t['status'] = cr.status_code
+    t['code'] = cr.status_code
     if cr.status_code == 200:
         t['status'] = 'OK'
     else:
