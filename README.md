@@ -46,7 +46,7 @@ heroku run bash
 apps:
 ~~~~
 $ heroku apps
-~~~
+~~~~
 
 scaling:
 ~~~
